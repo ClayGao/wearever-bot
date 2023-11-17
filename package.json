@@ -1,0 +1,23 @@
+{
+  "name": "wearever",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "cross-env-shell APP_ENV=production playwright test",
+    "test:ui": "cross-env-shell playwright test --ui",
+    "test:headed": "cross-env-shell playwright test --headed"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@playwright/test": "^1.39.0",
+    "@types/node": "^20.9.0"
+  },
+  "dependencies": {
+    "axios": "^1.6.2",
+    "cross-env": "^7.0.3",
+    "node-fetch": "^3.3.2"
+  }
+}
