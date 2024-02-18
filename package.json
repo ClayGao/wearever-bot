@@ -4,10 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "gp:json": "cross-env-shell APP_ENV=development ts-node ./src/get-products-to-json.ts",
-    "gp:db": "cross-env-shell APP_ENV=development ts-node ./src/get-products-to-db.ts",
-    "compare": "cross-env-shell APP_ENV=development ts-node ./src/getProductsCompare.ts",
-    "prod": "cross-env-shell APP_ENV=production ts-node ./src/getProductToTheSheet.ts",
+    "gp:json": "cross-env-shell APP_ENV=development npx ts-node ./src/get-products-to-json.ts",
+    "gp:db": "cross-env-shell APP_ENV=development npx ts-node ./src/get-products-to-db.ts",
+    "compare": "cross-env-shell APP_ENV=development npx ts-node ./src/getProductsCompare.ts",
+    "prod": "cross-env-shell APP_ENV=production npx ts-node ./src/getProductToTheSheet.ts",
     "test": "cross-env-shell APP_ENV=production playwright test",
     "test:ui": "cross-env-shell playwright test --ui",
     "test:headed": "cross-env-shell playwright test --headed"
