@@ -20,6 +20,9 @@ jobs:
     - name: Install Playwright Browsers
       run: npx playwright install --with-deps
     - name: Run update products to mongodb
+      env:
+        MONGODB_URI: ${{ secrets.MONGODB_URI }}
+        MONGODB_DB: ${{ secrets.MONGODB_DB }}
       run: npm run gp:db
     - uses: actions/upload-artifact@v3
       if: always()
