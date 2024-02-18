@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Image Viewer</title>
+  <style>
+    body {
+      position: relative;
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+    }
+
+    h1 {
+      color: #333;
+    }
+
+    .container {
+      margin-top: 70px;
+    }
+
+    #imageLinks {
+      width: 80%;
+      max-width: 400px;
+      padding: 10px;
+      margin: 20px auto;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      resize: none;
+      font-size: 16px;
+    }
+
+    button {
+      background-color: #007BFF;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      padding: 10px 20px;
+      font-size: 18px;
+      cursor: pointer;
+      margin: 5px;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    #imageContainer {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 10px;
+      max-width: 80%;
+      margin: 20px auto;
+    }
+
+    img {
+      max-width: 100%;
+      box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3);
+      position: relative;
+      cursor: pointer;
+    }
+
+    #copyMessage {
+      display: none;
+      color: green;
+      font-size: 14px;
+      margin-top: 10px;
+    }
+
+    #images-length {
+      height: 60px;
+      width: 100%;
+      position: fixed;
+      top: 0;
+      z-index: 1;
+      background-color: wheat;
+    }
+  </style>
+</head>
+
+<body>
+  <header id="images-length"></header>
+  <div class="container">
+    <h1>Image Viewer</h1>
+    <textarea id="imageLinks" rows="10" cols="50" placeholder="貼上圖片連結"></textarea>
+    <br>
+    <button onclick="displayImages()">顯示圖片</button>
+    <button onclick="randomImages()">隨機挑選 25 張</button>
+    <button onclick="outputLinks()">輸出並且複製連結</button>
+    <div id="copyMessage">已複製</div>
+    <div id="imageContainer">
+    </div>
+  </div>
+
+
+  <script>
+    function displayImages() {
+      const imageGroup = document.getElementById('imageLinks').value.split(`"`);
+      console.log({ imageGroup })
+      const imageLinks = document.getElementById('imageLinks').value.split('\n').map(link => link.replace(`"`, '')).filter(link => !link.includes('data:image'));
+      const imageContainer = document.getElementById('imageContainer');
+
+      // 清空已有的图片
+      imageContainer.innerHTML = '';
+
+
+      // 遍历链接并显示图片
+      imageLinks.forEach(link => {
+        if (link.trim() !== '') {
+          const img = document.createElement('img');
+          const allImgCounts = imageLinks.length
+          document.getElementById('images-length').textContent = `圖片數量: ${allImgCounts}`
+          img.src = link;
+          img.style.maxWidth = '100%';
+
+          img.onclick = () => {
+            img.remove(); // 移除图片本身
+            const allImgCounts = document.querySelectorAll('img').length;
+            document.getElementById('images-length').textContent = `圖片數量: ${allImgCounts}`
+          };
+
+
+          const imageWrapper = document.createElement('div');
+          imageWrapper.style.position = 'relative';
+          imageWrapper.appendChild(img);
+
+          imageContainer.appendChild(imageWrapper);
+        }
+      });
+      document.getElementById('imageLinks').value = '';
+    }
+
+    function outputLinks() {
+      const images = document.querySelectorAll('#imageContainer img');
+      const imageLinks = Array.from(images).map(img => img.src).join(' \n');
+      const textarea = document.getElementById('imageLinks');
+      textarea.value = imageLinks;
+      textarea.select();
+      document.execCommand('copy'); // 复制文本
+
+      // 显示复制完成消息
+      const copyMessage = document.getElementById('copyMessage');
+      copyMessage.style.display = 'block';
+
+      // 一秒后隐藏消息
+      setTimeout(() => {
+        copyMessage.style.display = 'none';
+      }, 1000);
+    }
+
+    function randomImages() {
+      let currentCount = document.querySelectorAll('img').length
+      const TARGET_IMAGES_COUNT = 25;
+      const getRandomIndex = (max) => Math.floor(Math.random() * max) + 1;
+
+      while (currentCount > TARGET_IMAGES_COUNT) {
+        const randomIndex = getRandomIndex(document.querySelectorAll('img').length);
+        const img = document.querySelectorAll('img')[randomIndex - 1];
+        img.remove();
+        currentCount = document.querySelectorAll('img').length
+      }
+
+      const allImgCounts = document.querySelectorAll('img').length;
+      document.getElementById('images-length').textContent = `圖片數量: ${allImgCounts}`
+    }
+  </script>
+</body>
+
+</html>

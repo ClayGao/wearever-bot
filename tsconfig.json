@@ -1,0 +1,8 @@
+{
+  "compilerOptions": {
+    "resolveJsonModule": true,
+    "lib": ["dom", "es6", "dom.iterable", "scripthost"],
+    // ... 其他選項
+  }
+  // ... 其他配置
+}
