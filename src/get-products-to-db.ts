@@ -1,5 +1,6 @@
 import { getNewProducts } from "./get-products";
 import { connectToDatabase } from "../utils/mongodb";
+import { compareArrAndReturnNew } from "../utils/compare";
 
 Promise.resolve(getNewProducts()).then(async (result) => {
   try {
