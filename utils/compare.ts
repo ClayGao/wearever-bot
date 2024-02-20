@@ -16,6 +16,7 @@ export const compareArrAndReturnNew = (
     );
     const isLinkExist = arrayA.some((itemA) => itemA.link === itemB.link);
     const isNameExist = arrayA.some((itemA) => itemA.name === itemB.name);
-    return !isPreviewImgExist && !isLinkExist && !isNameExist;
+    const isExist = isPreviewImgExist || isLinkExist || isNameExist;
+    return !isExist;
   });
 };

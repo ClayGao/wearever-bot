@@ -342,13 +342,13 @@ export const laRoomPdpHandler = async (page: Page, url: string) => {
 };
 
 export const veryYouPdpHandler = async (page: Page, url: string) => {
-  await page.goto(url, { waitUntil: "networkidle", timeout: 600000 });
+  await page.goto(url);
   // 先選擇顏色，才會出現尺寸
   await page.selectOption("#product_option_id1", { index: 2 });
   await scrollToElement(page, 1);
 
   const productData = await page.evaluate(() => {
-    const name = document.querySelector("h1.name")!.textContent;
+    const name = document.querySelector(".headingArea")!.textContent;
 
     const price = (document.querySelector("#span_product_price_sale") ||
       document.querySelector("#span_product_price_text"))!.textContent?.split(
@@ -376,21 +376,16 @@ export const veryYouPdpHandler = async (page: Page, url: string) => {
       .map((el) => el.getAttribute("value"))
       .join(" / ");
 
-    const images = Array.from(
-      document.querySelectorAll("#prdDetailContent img")
-    )
-      .map(
-        //@ts-ignore
-        (imgEl) => imgEl.src
-      )
-      .join(" \n");
-
-    const productImage = Array.from(
-      document.querySelectorAll("#prdDetailContent img")
+    const imageList = Array.from(
+      document.querySelectorAll("#prdDetail img")
     ).map(
       //@ts-ignore
       (imgEl) => imgEl.src
-    )[0];
+    );
+
+    const images = imageList.join(" \n");
+
+    const productImage = imageList[imageList.length - 1];
 
     return {
       name,
@@ -489,12 +484,16 @@ export const newCheapChicPdpHandler = async (page: Page, url: string) => {
   await page.goto(url, { waitUntil: "networkidle", timeout: 600000 });
   // 先選擇顏色，才會出現尺寸
   // await page.selectOption("#product_option_id1", { index: 2 });
+  await scrollToElement(page, 10);
   await scrollToElement(page, 1);
+  // 等圖 load 出來
+  await page.waitForTimeout(2000);
+  await scrollToElement(page, 1);
+  await page.waitForTimeout(2000);
 
   const productData = await page.evaluate(() => {
-    const productDetailWrapper = document.querySelector(
-      ".shopProductOptionListDiv"
-    )!;
+    const productDetailWrapper =
+      document.querySelector(".shopProductOptionListDiv") || document;
     const colorSelector =
       productDetailWrapper.querySelectorAll(".customSelectDiv")[0];
     const sizeSelector =
@@ -513,30 +512,22 @@ export const newCheapChicPdpHandler = async (page: Page, url: string) => {
 
     const name = document.querySelector("#shopProductName")!.textContent;
 
-    const price = (document.querySelector("#span_product_price_sale") ||
-      document.querySelector("#shopProductPrice"))!.textContent;
+    const price = document.querySelector("#shopProductPrice").textContent;
     const description = `${
-      document.querySelectorAll("#productDescriptionDetailPage")[1].textContent
+      document.querySelector("#productDescriptionDetailPage")!.textContent
     }`;
 
     const color = colorsArr.join(" / ");
     const size = sizesArr.join(" / ");
 
-    const images = Array.from(
-      document.querySelectorAll("#productDescriptionDetailPage img")
-    )
-      .map(
-        //@ts-ignore
-        (imgEl) => imgEl.src
-      )
-      .join(" \n");
-
-    const productImage = Array.from(
+    const imageList = Array.from(
       document.querySelectorAll("#productDescriptionDetailPage img")
     ).map(
       //@ts-ignore
-      (imgEl) => imgEl.src
-    )[0];
+      (imgEl) => imgEl.getAttribute("data-src")
+    );
+    const images = imageList.join(" \n");
+    const productImage = imageList[imageList.length - 1];
 
     return {
       name,

@@ -7,3 +7,4 @@ node_modules/
 product-*.json
 stagingToMain
 .env
+cart-*.json
