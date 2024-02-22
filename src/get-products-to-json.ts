@@ -6,10 +6,7 @@ import { getTodayDate } from "../utils/getToday";
 
 Promise.resolve(getNewProducts())
   .then(async (result) => {
-    await exportArrayToJsonFile(
-      uniqueItems(result),
-      `product-${getTodayDate()}.json`
-    );
+    await exportArrayToJsonFile(result, `product-${getTodayDate()}.json`);
   })
   .then(() => {
     process.exit();
