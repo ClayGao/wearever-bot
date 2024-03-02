@@ -521,11 +521,8 @@ export const newCheapChicPdpHandler = async (page: Page, url: string) => {
     const size = sizesArr.join(" / ");
 
     const imageList = Array.from(
-      document.querySelectorAll("#productDescriptionDetailPage img")
-    ).map(
-      //@ts-ignore
-      (imgEl) => imgEl.getAttribute("data-src")
-    );
+      document.querySelectorAll("#shopProductImgsMainDiv img")
+    ).map((imgEl) => imgEl.getAttribute("src"));
     const images = imageList.join(" \n");
     const productImage = imageList[imageList.length - 1];
 
@@ -543,6 +540,77 @@ export const newCheapChicPdpHandler = async (page: Page, url: string) => {
   const result = {
     url,
     brand: "new-cheap-chic",
+    ...productData,
+  };
+
+  return result;
+};
+
+export const m123undeuxtroisHandler = async (page: Page, url: string) => {
+  await page.goto(url, { waitUntil: "networkidle", timeout: 600000 });
+  // 先選擇顏色，才會出現尺寸
+
+  await scrollToElement(page, 1);
+
+  const productData = await page.evaluate(() => {
+    const name = document.querySelector("#container .name")!.textContent;
+
+    const price = (document.querySelector("#span_product_price_sale") ||
+      document.querySelector("#span_product_price_text"))!.textContent;
+    const description = `${Array.from(
+      document.querySelectorAll(".edibot-product-detail > div > div")
+    )
+      .map((div) => div.textContent)
+      .join("\n")}`;
+
+    const color = Array.from(
+      document.querySelectorAll('.prdOption ul[option_title*="COLOR"] > li')
+    )
+      .map((el) => {
+        const val = el.getAttribute("option_value") || "";
+        return val;
+      })
+      .join(" / ");
+
+    const size = Array.from(
+      document.querySelectorAll('.prdOption ul[option_title*="SIZE"] > li')
+    )
+      .map((el) => {
+        const val = el.getAttribute("option_value") || "";
+        return val;
+      })
+      .join(" / ");
+
+    const images = Array.from(
+      document.querySelectorAll(".edibot-product-detail img")
+    )
+      .map(
+        //@ts-ignore
+        (imgEl) => imgEl.src
+      )
+      .join(" \n");
+
+    const productImage = Array.from(
+      document.querySelectorAll(".edibot-product-detail img")
+    ).map(
+      //@ts-ignore
+      (imgEl) => imgEl.src
+    )[0];
+
+    return {
+      name,
+      price,
+      description,
+      color,
+      size,
+      images,
+      productImage,
+    };
+  });
+
+  const result = {
+    url,
+    brand: "m123undeuxtrois",
     ...productData,
   };
 

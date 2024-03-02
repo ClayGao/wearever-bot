@@ -6,6 +6,7 @@ import {
   laRoomPdpHandler,
   veryYouPdpHandler,
   room203PdpHandler,
+  m123undeuxtroisHandler,
 } from "./site/sitePdpHandler";
 
 export const PLAYWRIGHT_CONFIG = {
@@ -170,6 +171,23 @@ export const SITE_CONFIG: SiteConfig[] = [
     cardSelector: ".productListPage .shopProductWrapper",
     cartProductNameSelector: ".productName",
     pdpHandler: newCheapChicPdpHandler,
+  },
+  {
+    enable: true,
+    name: "m123undeuxtrois",
+    domain: "https://m.123undeuxtrois.com",
+    pages: [
+      // "https://m.123undeuxtrois.com/product/list2.html?cate_no=44", // NOUARTÉ 누아르테
+      "https://m.123undeuxtrois.com/product/list.html?cate_no=45", // Outer
+      "https://m.123undeuxtrois.com/product/list.html?cate_no=46", // TOP
+      "https://m.123undeuxtrois.com/product/list.html?cate_no=47", // Bottom
+      "https://m.123undeuxtrois.com/product/list.html?cate_no=48", // Dress/set
+      "https://m.123undeuxtrois.com/product/list.html?cate_no=50", // shoes
+    ],
+    pagePagination: 2,
+    cardSelector: ".prdList .xans-record-",
+    cartProductNameSelector: ".name",
+    pdpHandler: m123undeuxtroisHandler,
   },
 ];
 
