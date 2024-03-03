@@ -547,10 +547,11 @@ export const newCheapChicPdpHandler = async (page: Page, url: string) => {
 };
 
 export const m123undeuxtroisHandler = async (page: Page, url: string) => {
-  await page.goto(url, { waitUntil: "networkidle", timeout: 600000 });
+  await page.goto(url, { waitUntil: "load", timeout: 600000 });
   // 先選擇顏色，才會出現尺寸
 
   await scrollToElement(page, 1);
+  await page.waitForTimeout(5000);
 
   const productData = await page.evaluate(() => {
     const name = document.querySelector("#container .name")!.textContent;
