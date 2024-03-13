@@ -54,24 +54,24 @@ export const SITE_CONFIG: SiteConfig[] = [
   //   cartProductNameSelector: ".name",
   //   pdpHandler: hifiPdpHandler,
   // },
-  // {
-  //   enable: true,
-  //   name: "MTSU",
-  //   domain: "https://tsumu.co.kr",
-  //   pages: [
-  //     // "https://tsumu.co.kr/product/list.html?cate_no=62", // New 7%
-  //     "https://tsumu.co.kr/product/list.html?cate_no=26", // best
-  //     "https://tsumu.co.kr/product/list.html?cate_no=24", // outer
-  //     "https://tsumu.co.kr/product/list.html?cate_no=25", // top
-  //     "https://tsumu.co.kr/product/list.html?cate_no=28", // pants
-  //     "https://tsumu.co.kr/product/list.html?cate_no=30", // accessories
-  //     // "https://tsumu.co.kr/product/list.html?cate_no=31", // sale
-  //   ],
-  //   pagePagination: 1,
-  //   cardSelector: ".prdList > li",
-  //   cartProductNameSelector: ".name",
-  //   pdpHandler: mstuPdpHandler,
-  // },
+  {
+    enable: true,
+    name: "MTSU",
+    domain: "https://tsumu.co.kr",
+    pages: [
+      // "https://tsumu.co.kr/product/list.html?cate_no=62", // New 7%
+      // "https://tsumu.co.kr/product/list.html?cate_no=26", // best
+      "https://tsumu.co.kr/product/list.html?cate_no=24", // outer
+      "https://tsumu.co.kr/product/list.html?cate_no=25", // top
+      "https://tsumu.co.kr/product/list.html?cate_no=28", // pants
+      // "https://tsumu.co.kr/product/list.html?cate_no=30", // accessories
+      // "https://tsumu.co.kr/product/list.html?cate_no=31", // sale
+    ],
+    pagePagination: 2,
+    cardSelector: ".prdList > li",
+    cartProductNameSelector: ".name",
+    pdpHandler: mstuPdpHandler,
+  },
   {
     enable: true,
     name: "AUTUMN",
