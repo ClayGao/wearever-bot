@@ -1,3 +1,4 @@
+import { scrollToTheBottom } from "./utils/scroll";
 import {
   autumnPdpHandler,
   mstuPdpHandler,
@@ -123,7 +124,7 @@ export const SITE_CONFIG: SiteConfig[] = [
     pdpHandler: laRoomPdpHandler,
   },
   {
-    enable: true,
+    enable: false,
     name: "VERY-YOU",
     domain: "https://veryyou.co.kr",
     pages: [
@@ -140,7 +141,7 @@ export const SITE_CONFIG: SiteConfig[] = [
     pdpHandler: veryYouPdpHandler,
   },
   {
-    enable: true,
+    enable: false,
     name: "room203",
     domain: "https://room203.kr/",
     pages: [
@@ -158,7 +159,7 @@ export const SITE_CONFIG: SiteConfig[] = [
     pdpHandler: room203PdpHandler,
   },
   {
-    enable: true,
+    enable: false,
     name: "NEW_CHEAP_CHIC",
     domain: "https://newcheapchic.store",
     pages: [
@@ -175,7 +176,7 @@ export const SITE_CONFIG: SiteConfig[] = [
     pdpHandler: newCheapChicPdpHandler,
   },
   {
-    enable: true,
+    enable: false,
     name: "m123undeuxtrois",
     domain: "https://m.123undeuxtrois.com",
     pages: [
@@ -200,19 +201,26 @@ export const SITE_CONFIG: SiteConfig[] = [
       // https://dipliti.com/category/new/172/, // NEW
     ],
     pagePagination: 1,
-    cardSelector: ".prdList .xans-record-",
+    cardSelector: ".prdList > li",
     cartProductNameSelector: ".name",
     pdpHandler: diplitiHandler,
     callback: async (page) => {
       const cta = page.locator(".btnMore--prd");
       await cta.click();
+      await scrollToTheBottom(page);
+      await page.waitForTimeout(5000);
+
       await cta.click();
+      await scrollToTheBottom(page);
+      await page.waitForTimeout(5000);
+
       await cta.click();
+      await scrollToTheBottom(page);
+      await page.waitForTimeout(5000);
+
       await cta.click();
-      await cta.click();
-      await cta.click();
-      await cta.click();
-      await cta.click();
+      await scrollToTheBottom(page);
+      await page.waitForTimeout(5000);
     },
   },
 ];

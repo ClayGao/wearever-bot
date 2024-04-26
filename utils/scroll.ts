@@ -10,3 +10,12 @@ export const scrollToElement = async (page: Page, top: number) => {
     top
   );
 };
+
+export const scrollToTheBottom = async (page: Page) => {
+  await page.evaluate(() => {
+    window.scrollTo({
+      behavior: "smooth",
+      top: document.body.scrollHeight,
+    });
+  });
+};
