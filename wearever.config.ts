@@ -203,15 +203,16 @@ export const SITE_CONFIG: SiteConfig[] = [
     cardSelector: ".prdList .xans-record-",
     cartProductNameSelector: ".name",
     pdpHandler: diplitiHandler,
-    callback: async (el: any) => {
-      await el.click();
-      await el.click();
-      await el.click();
-      await el.click();
-      await el.click();
-      await el.click();
-      await el.click();
-      await el.click();
+    callback: async (page) => {
+      const cta = page.locator(".btnMore--prd");
+      await cta.click();
+      await cta.click();
+      await cta.click();
+      await cta.click();
+      await cta.click();
+      await cta.click();
+      await cta.click();
+      await cta.click();
     },
   },
 ];

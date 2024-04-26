@@ -53,6 +53,8 @@ const addProductCardToArray = async (page: Page, url: string) => {
   }
 
   const cards = await page.locator(site.cardSelector).all();
+  const callback = site.callback || (() => {});
+  if (callback) await callback(page);
 
   // 這裡負責處理 Product List 上每一個 Product 的內容，然後加到 Array
   for (const card of await cards) {
