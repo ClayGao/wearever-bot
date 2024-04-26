@@ -7,6 +7,7 @@ import {
   veryYouPdpHandler,
   room203PdpHandler,
   m123undeuxtroisHandler,
+  diplitiHandler,
 } from "./site/sitePdpHandler";
 
 export const PLAYWRIGHT_CONFIG = {
@@ -25,6 +26,7 @@ type SiteConfig = {
   pageQueryString?: string;
   previewImgSelector?: string;
   pdpHandler: Function; // Replace Function with a more specific type if possible
+  callback?: Function;
 };
 
 /**
@@ -188,6 +190,29 @@ export const SITE_CONFIG: SiteConfig[] = [
     cardSelector: ".prdList .xans-record-",
     cartProductNameSelector: ".name",
     pdpHandler: m123undeuxtroisHandler,
+  },
+  {
+    enable: true,
+    name: "dipliti",
+    domain: "https://dipliti.com",
+    pages: [
+      "https://dipliti.com/category/shop/153/", // SHOP
+      // https://dipliti.com/category/new/172/, // NEW
+    ],
+    pagePagination: 1,
+    cardSelector: ".prdList .xans-record-",
+    cartProductNameSelector: ".name",
+    pdpHandler: diplitiHandler,
+    callback: async (el: any) => {
+      await el.click();
+      await el.click();
+      await el.click();
+      await el.click();
+      await el.click();
+      await el.click();
+      await el.click();
+      await el.click();
+    },
   },
 ];
 

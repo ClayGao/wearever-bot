@@ -1,4 +1,4 @@
-// import ProductList from "../product-2024-03-02.json";
+import ProductList from "../product-2024-03-09-women.json";
 // import * as ProductList from "../cart-women.json";
 // import * as ProductList from "../veryu.json";
 import { chromium } from "@playwright/test";
@@ -29,19 +29,19 @@ const init = async () => {
   return { page, browser };
 };
 
-// export const productJsonToSheet = async () => {
-//   const { page } = await init();
-//   for (const { link, previewImg } of ProductList) {
-//     const site = SITE_CONFIG.find((site) => link.includes(site.domain));
-//     if (site) {
-//       const pdpData = await site.pdpHandler(page, link);
-//       // console.log({ pdpData });
-//       await postToStagingSheet({
-//         ...pdpData,
-//         productImage: previewImg,
-//       });
-//     }
-//   }
-// };
+export const productJsonToSheet = async () => {
+  const { page } = await init();
+  for (const { link, previewImg } of ProductList) {
+    const site = SITE_CONFIG.find((site) => link.includes(site.domain));
+    if (site) {
+      const pdpData = await site.pdpHandler(page, link);
+      // console.log({ pdpData });
+      await postToStagingSheet({
+        ...pdpData,
+        productImage: previewImg,
+      });
+    }
+  }
+};
 
-// Promise.resolve(productJsonToSheet()).then(() => process.exit());
+Promise.resolve(productJsonToSheet()).then(() => process.exit());

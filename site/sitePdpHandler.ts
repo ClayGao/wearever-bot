@@ -617,3 +617,79 @@ export const m123undeuxtroisHandler = async (page: Page, url: string) => {
 
   return result;
 };
+
+export const diplitiHandler = async (page: Page, url: string) => {
+  await page.goto(url, { waitUntil: "load", timeout: 600000 });
+  // 先選擇顏色，才會出現尺寸
+
+  await scrollToElement(page, 1);
+  await page.waitForTimeout(5000);
+
+  const productData = await page.evaluate(() => {
+    const name = document.querySelector(
+      ".prd-name flex flex--v-center"
+    )!.textContent;
+
+    const price = (document.querySelector("#span_product_price_sale") ||
+      document.querySelector("#span_product_price_text"))!.textContent;
+    const description = `${Array.from(
+      document.querySelectorAll(".edibot-product-detail > div > div")
+    )
+      .map((div) => div.textContent)
+      .join("\n")}`;
+
+    const color = Array.from(
+      document.querySelectorAll("#product_option_id1 > option")
+    )
+      .filter(
+        // 排除預設兩個
+        (el, idx) => idx > 1
+      )
+      .map((el) => {
+        const val = el.getAttribute("value");
+        return val?.split("*")[0];
+      })
+      .join(" / ");
+
+    const size = Array.from(
+      document.querySelectorAll("#product_option_id2 > option")
+    )
+      .filter((el) => el.getAttribute("value")?.indexOf("*") === -1)
+      .map((el) => el.getAttribute("value"))
+      .join(" / ");
+
+    const images = Array.from(
+      document.querySelectorAll(".edibot-product-detail img")
+    )
+      .map(
+        //@ts-ignore
+        (imgEl) => imgEl.src
+      )
+      .join(" \n");
+
+    const productImage = Array.from(
+      document.querySelectorAll(".edibot-product-detail img")
+    ).map(
+      //@ts-ignore
+      (imgEl) => imgEl.src
+    )[0];
+
+    return {
+      name,
+      price,
+      description,
+      color,
+      size,
+      images,
+      productImage,
+    };
+  });
+
+  const result = {
+    url,
+    brand: "dipliti",
+    ...productData,
+  };
+
+  return result;
+};
