@@ -626,9 +626,7 @@ export const diplitiHandler = async (page: Page, url: string) => {
   await page.waitForTimeout(5000);
 
   const productData = await page.evaluate(() => {
-    const name = document.querySelector(
-      ".prd-name flex flex--v-center"
-    )!.textContent;
+    const name = document.querySelector(".prd-name")!.textContent;
 
     const price = (document.querySelector("#span_product_price_sale") ||
       document.querySelector("#span_product_price_text"))!.textContent;
