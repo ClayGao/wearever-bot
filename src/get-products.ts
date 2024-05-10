@@ -31,6 +31,7 @@ const gotoAllProductPageWithPages = async (page: Page) => {
         const urlWithQs = `${url}${qs}`;
         try {
           await page.goto(urlWithQs, {
+            waitUntil: "domcontentloaded",
             timeout: 60000,
           });
           await page.waitForTimeout(3000);

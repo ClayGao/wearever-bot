@@ -9,6 +9,8 @@ import {
   room203PdpHandler,
   m123undeuxtroisHandler,
   diplitiHandler,
+  chieleiHandler,
+  clostudioHandler,
 } from "./site/sitePdpHandler";
 
 export const PLAYWRIGHT_CONFIG = {
@@ -58,7 +60,7 @@ export const SITE_CONFIG: SiteConfig[] = [
   //   pdpHandler: hifiPdpHandler,
   // },
   {
-    enable: true,
+    enable: false,
     name: "MTSU",
     domain: "https://tsumu.co.kr",
     pages: [
@@ -200,7 +202,7 @@ export const SITE_CONFIG: SiteConfig[] = [
       "https://dipliti.com/category/shop/153/", // SHOP
       // https://dipliti.com/category/new/172/, // NEW
     ],
-    pagePagination: 1,
+    pagePagination: 1, // 他是單頁，不用改
     cardSelector: ".prdList > li",
     cartProductNameSelector: ".name",
     pdpHandler: diplitiHandler,
@@ -222,6 +224,30 @@ export const SITE_CONFIG: SiteConfig[] = [
       await scrollToTheBottom(page);
       await page.waitForTimeout(5000);
     },
+  },
+  {
+    enable: false,
+    name: "chielei",
+    domain: "https://www.chielei.com", // 手工鞋
+    pages: [
+      "https://www.chielei.com/product/list.html?cate_no=101", // 24SS
+    ],
+    pagePagination: 2,
+    cardSelector: ".prdList > li",
+    cartProductNameSelector: ".name",
+    pdpHandler: chieleiHandler,
+  },
+  {
+    enable: true,
+    name: "clostudio",
+    domain: "https://clostudio.kr",
+    pages: [
+      "https://clostudio.kr/product/list.html?cate_no=454", // NEW 5%
+    ],
+    pagePagination: 2,
+    cardSelector: ".prdList > li",
+    cartProductNameSelector: ".name",
+    pdpHandler: clostudioHandler,
   },
 ];
 
