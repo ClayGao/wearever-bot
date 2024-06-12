@@ -11,6 +11,7 @@ import {
   diplitiHandler,
   chieleiHandler,
   clostudioHandler,
+  raptureHandler,
 } from "./site/sitePdpHandler";
 
 export const PLAYWRIGHT_CONFIG = {
@@ -78,7 +79,7 @@ export const SITE_CONFIG: SiteConfig[] = [
     pdpHandler: mstuPdpHandler,
   },
   {
-    enable: true,
+    enable: false,
     name: "AUTUMN",
     domain: "https://autumnshop.kr",
     pages: [
@@ -106,7 +107,7 @@ export const SITE_CONFIG: SiteConfig[] = [
     pdpHandler: autumnPdpHandler,
   },
   {
-    enable: true,
+    enable: false,
     name: "LA-ROOM",
     domain: "https://la-room.kr",
     pages: [
@@ -195,7 +196,7 @@ export const SITE_CONFIG: SiteConfig[] = [
     pdpHandler: m123undeuxtroisHandler,
   },
   {
-    enable: true,
+    enable: false,
     name: "dipliti",
     domain: "https://dipliti.com",
     pages: [
@@ -238,16 +239,33 @@ export const SITE_CONFIG: SiteConfig[] = [
     pdpHandler: chieleiHandler,
   },
   {
-    enable: true,
+    enable: false,
     name: "clostudio",
     domain: "https://clostudio.kr",
     pages: [
       "https://clostudio.kr/product/list.html?cate_no=454", // NEW 5%
+      "https://clostudio.kr/product/list.html?cate_no=455", // BEST
+      "https://clostudio.kr/product/list.html?cate_no=456", // CLOS MADE
+      "https://clostudio.kr/product/list.html?cate_no=472", // All
     ],
     pagePagination: 2,
     cardSelector: ".prdList > li",
     cartProductNameSelector: ".name",
     pdpHandler: clostudioHandler,
+  },
+  {
+    enable: true,
+    name: "rapture",
+    domain: "https://www.about-rapture.kr/",
+    pages: [
+      "https://www.about-rapture.kr/allproduct?productListFilter=allFilter&productSortFilter=PRODUCT_ORDER_NO", // OUTER
+    ],
+    pageQueryString: "productListPage",
+    pagePagination: 5,
+    cardSelector: ".productListPage > .shopProductWrapper",
+    cartProductNameSelector: ".productName",
+    pdpHandler: raptureHandler,
+    previewImgSelector: ".img",
   },
 ];
 

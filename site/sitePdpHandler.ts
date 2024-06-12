@@ -847,3 +847,87 @@ export const clostudioHandler = async (page: Page, url: string) => {
 
   return result;
 };
+
+export const raptureHandler = async (page: Page, url: string) => {
+  await page.goto(url, { waitUntil: "load", timeout: 600000 });
+
+  for (let i = 1; i <= 10; i++) {
+    await scrollToElement(page, 1);
+    await page.waitForTimeout(1500);
+  }
+
+  const productData = await page.evaluate(() => {
+    // 這個函數是為了去除重複的尺寸
+    const uniqArr = (arr) => {
+      return Array.from(new Set(arr));
+    };
+
+    const name = document.querySelectorAll(
+      "#shopProductNameWrapper .productName"
+    )[0]!.textContent;
+
+    const price = (document.querySelector(
+      "#shopProductPrice .productPriceSpan"
+    ) || document.querySelector("#shopProductPrice .productDiscountPriceSpan"))!
+      .textContent;
+    const description = document.querySelector(
+      "#shopProductCaption"
+    )!.textContent;
+
+    const colorSelector = Array.from(
+      document.querySelectorAll(".shopProductOptionListDiv .productOption")
+    )[0];
+    const sizeSelector = Array.from(
+      document.querySelectorAll(".shopProductOptionListDiv .productOption")
+    )[1];
+
+    const color = Array.from(
+      colorSelector.querySelectorAll(".custom-select-option")
+    )
+      .filter((_, id) => id > 0)
+      .map((el) => el.textContent)
+      .join(" / ");
+
+    const size = uniqArr(
+      Array.from(sizeSelector.querySelectorAll(".custom-select-option"))
+        .filter((_, id) => id > 0)
+        .map((el) => el.textContent)
+    ).join(" / ");
+
+    const images = Array.from(
+      document.querySelectorAll("#productDescriptionDetailPage img")
+    )
+      .map(
+        //@ts-ignore
+        (imgEl) => imgEl.src
+      )
+      .join(" \n");
+
+    const productImage = Array.from(
+      document.querySelectorAll(
+        "#shopProductImgMainWrapper .shopProductImgMain"
+      )
+    ).map(
+      //@ts-ignore
+      (imgEl) => imgEl.src
+    )[0];
+
+    return {
+      name,
+      price,
+      description,
+      color,
+      size,
+      images,
+      productImage,
+    };
+  });
+
+  const result = {
+    url,
+    brand: "rapture",
+    ...productData,
+  };
+
+  return result;
+};
