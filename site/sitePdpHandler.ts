@@ -931,3 +931,146 @@ export const raptureHandler = async (page: Page, url: string) => {
 
   return result;
 };
+
+export const tuziroomHandler = async (page: Page, url: string) => {
+  await page.goto(url, { waitUntil: "networkidle", timeout: 600000 });
+  // 先選擇顏色，才會出現尺寸
+  await page.selectOption("#product_option_id1", { index: 2 });
+  for (let i = 1; i <= 10; i++) {
+    await scrollToElement(page, 1);
+    await page.waitForTimeout(1500);
+  }
+
+  const productData = await page.evaluate(() => {
+    const name = document.querySelector(
+      ".is_stuck .xans-product .xans-record- span"
+    )!.textContent;
+
+    const price = (document.querySelector("#span_product_price_sale") ||
+      document.querySelector("#span_product_price_text"))!.textContent;
+    const description = `${
+      document.querySelectorAll(".edb-img-tag-w")[1].textContent
+    }`;
+
+    const color = Array.from(
+      document.querySelectorAll('#product_option_id1[option_title="color"] optgroup > option')
+    )
+      .map((el) => {
+        return el.textContent
+      })
+      .join(" / ");
+
+    const size = Array.from(
+      document.querySelectorAll('#product_option_id1[option_title="color-size"] optgroup > option')
+    )
+      .map((el) => {
+        return el.textContent
+      })
+      .join(" / ");
+
+    const images = Array.from(
+      document.querySelectorAll(".edibot-product-detail img")
+    )
+      .map(
+        //@ts-ignore
+        (imgEl) => imgEl.src
+      )
+      .filter((value, index, self) => self.indexOf(value) === index).join(" \n");
+
+    const productImage = Array.from(
+      document.querySelectorAll(".edibot-product-detail img")
+    ).map(
+      //@ts-ignore
+      (imgEl) => imgEl.src
+    )[0];
+
+    return {
+      name,
+      price,
+      description,
+      color,
+      size,
+      images,
+      productImage,
+    };
+  });
+
+  const result = {
+    url,
+    brand: "tuziroom",
+    ...productData,
+  };
+
+  return result;
+}
+export const hoiboHandler = async (page: Page, url: string) => {
+  await page.goto(url, { waitUntil: "networkidle", timeout: 600000 });
+  // 先選擇顏色，才會出現尺寸
+  await page.selectOption("#product_option_id1", { index: 2 });
+  for (let i = 1; i <= 10; i++) {
+    await scrollToElement(page, 1);
+    await page.waitForTimeout(1500);
+  }
+
+  const productData = await page.evaluate(() => {
+    const name = document.querySelector(
+      ".detailArea .name"
+    )!.textContent;
+
+    const price = document.querySelector(
+      ".detailArea .price"
+    )!.textContent;
+    const description = document.querySelector(".about").textContent
+    
+    const color = Array.from(
+      document.querySelector('.xans-product-option').querySelectorAll('[option_title="Color"] > option')
+    )
+      .filter(
+        // 排除預設兩個
+        (el, idx) => idx > 1
+      )
+      .map((el) => {
+        const val = el.getAttribute("value");
+        return val?.split("*")[0];
+      })
+      .join(" / ");
+
+    const size = Array.from(
+      document.querySelector('.xans-product-option').querySelectorAll('[option_title="Size"] > option')
+    )
+      .filter(
+        (el, idx) => idx > 1
+      )
+      .map((el) => el.getAttribute("value"))
+      .join(" / ");
+
+    const images = Array.from(
+      document.querySelectorAll("#prdDetail img")
+    )
+      .map(
+        //@ts-ignore
+        (imgEl) => imgEl.src
+      )
+      .join(" \n");
+
+    const productImage = images[0];
+
+    return {
+      name,
+      price,
+      description,
+      color,
+      size,
+      images,
+      productImage,
+    };
+  });
+
+  const result = {
+    url,
+    brand: "hoibo",
+    ...productData,
+  };
+
+  return result;
+}

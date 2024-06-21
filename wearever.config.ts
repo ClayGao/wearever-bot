@@ -12,6 +12,8 @@ import {
   chieleiHandler,
   clostudioHandler,
   raptureHandler,
+  tuziroomHandler,
+  hoiboHandler, 
 } from "./site/sitePdpHandler";
 
 export const PLAYWRIGHT_CONFIG = {
@@ -107,7 +109,7 @@ export const SITE_CONFIG: SiteConfig[] = [
     pdpHandler: autumnPdpHandler,
   },
   {
-    enable: false,
+    enable: true,
     name: "LA-ROOM",
     domain: "https://la-room.kr",
     pages: [
@@ -121,7 +123,7 @@ export const SITE_CONFIG: SiteConfig[] = [
       "https://la-room.kr/product/list.html?cate_no=42", // Accessory
       // "https://la-room.kr/product/list.html?cate_no=87", // Shipping Today
     ],
-    pagePagination: 2,
+    pagePagination: 4,
     cardSelector: ".xans-product-listnormal .mun-prd-list .mun-prd-list-cover",
     cartProductNameSelector: ".name",
     pdpHandler: laRoomPdpHandler,
@@ -196,7 +198,7 @@ export const SITE_CONFIG: SiteConfig[] = [
     pdpHandler: m123undeuxtroisHandler,
   },
   {
-    enable: false,
+    enable: true,
     name: "dipliti",
     domain: "https://dipliti.com",
     pages: [
@@ -254,18 +256,57 @@ export const SITE_CONFIG: SiteConfig[] = [
     pdpHandler: clostudioHandler,
   },
   {
-    enable: true,
+    enable: false,
     name: "rapture",
     domain: "https://www.about-rapture.kr/",
     pages: [
       "https://www.about-rapture.kr/allproduct?productListFilter=allFilter&productSortFilter=PRODUCT_ORDER_NO", // OUTER
     ],
     pageQueryString: "productListPage",
-    pagePagination: 5,
+    pagePagination: 2,
     cardSelector: ".productListPage > .shopProductWrapper",
     cartProductNameSelector: ".productName",
     pdpHandler: raptureHandler,
     previewImgSelector: ".img",
+  },
+  {
+    enable: true,
+    name: "tuziroom",
+    domain: "https://tuziroom.com/",
+    pages: [
+      "https://tuziroom.com/category/all-item/28/", // All
+      "https://tuziroom.com/new-5/72/", // New 5%
+    ],
+    pagePagination: 5,
+    cardSelector: ".prdList .xans-record-",
+    cartProductNameSelector: ".name",
+    pdpHandler: tuziroomHandler
+  },
+  {
+    enable: true,
+    name: "tuziroom-summer",
+    domain: "https://tuziroomofficial.cafe24.com/",
+    pages: [
+      "https://tuziroomofficial.cafe24.com/product/list.html?cate_no=57", // All
+    ],
+    pagePagination: 3,
+    cardSelector: ".prdList .xans-record-",
+    cartProductNameSelector: ".name",
+    pdpHandler: tuziroomHandler
+  },
+  {
+    enable: true,
+    name: "hoibo",
+    domain: "https://hoibo.kr/",
+    pages: [
+      "https://hoibo.kr/product/list.html?cate_no=46", // All
+      "https://hoibo.kr/product/list.html?cate_no=51", // New 5%
+      "https://hoibo.kr/product/list.html?cate_no=42", // Best
+    ],
+    pagePagination: 3,
+    cardSelector: ".prdList .xans-record-",
+    cartProductNameSelector: ".name",
+    pdpHandler: hoiboHandler
   },
 ];
 
