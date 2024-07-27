@@ -190,7 +190,7 @@ export const hifiPdpHandler = async (page: Page, url: string) => {
 
 export const autumnPdpHandler = async (page: Page, url: string) => {
   try {
-    await page.goto(url, { waitUntil: "networkidle" });
+    await page.goto(url, { waitUntil: "domcontentloaded" });
     // 先選擇顏色，才會出現尺寸
     await page.selectOption("#product_option_id1", { index: 2 });
     await scrollToElement(page, 1);
@@ -260,7 +260,7 @@ export const autumnPdpHandler = async (page: Page, url: string) => {
     };
     return result;
   } catch (err) {
-    console.log(url);
+    console.log(err, url);
     return null;
   }
 };

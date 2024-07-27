@@ -81,7 +81,7 @@ export const SITE_CONFIG: SiteConfig[] = [
     pdpHandler: mstuPdpHandler,
   },
   {
-    enable: false,
+    enable: true,
     name: "AUTUMN",
     domain: "https://autumnshop.kr",
     pages: [
@@ -94,8 +94,8 @@ export const SITE_CONFIG: SiteConfig[] = [
       // "https://autumnshop.kr/product/list.html?cate_no=60", // shoes & bag
       // "https://autumnshop.kr/product/list.html?cate_no=61", // acc
       // --------------------------
-      // `https://autumnshop.kr/product/list.html?cate_no=76&sort_method=5`, // new and all
-      // `https://autumnshop.kr/product/list_best.html?cate_no=77&sort_method=5`, // best 50
+      `https://autumnshop.kr/product/list.html?cate_no=76&sort_method=5`, // new and all
+      `https://autumnshop.kr/product/list_best.html?cate_no=77&sort_method=5`, // best 50
       `https://autumnshop.kr/product/list.html?cate_no=42&sort_method=5`, // outer
       `https://autumnshop.kr/product/list.html?cate_no=48&sort_method=5`, // top
       `https://autumnshop.kr/product/list.html?cate_no=59&sort_method=5`, // bottom
@@ -103,7 +103,7 @@ export const SITE_CONFIG: SiteConfig[] = [
       `https://autumnshop.kr/product/list.html?cate_no=60&sort_method=5`, // shoes & bag
       `https://autumnshop.kr/product/list.html?cate_no=61&sort_method=5`, // acc
     ],
-    pagePagination: 2,
+    pagePagination: 4,
     cardSelector: ".xans-product-normalpackage .prdList > li",
     cartProductNameSelector: ".name",
     pdpHandler: autumnPdpHandler,
@@ -113,7 +113,7 @@ export const SITE_CONFIG: SiteConfig[] = [
     name: "LA-ROOM",
     domain: "https://la-room.kr",
     pages: [
-      // "https://la-room.kr/product/list.html?cate_no=66", // New Product
+      "https://la-room.kr/product/list.html?cate_no=66", // New Product
       // "https://la-room.kr/product/list.html?cate_no=73", // Hot Products
       "https://la-room.kr/product/list.html?cate_no=25", // TOP
       "https://la-room.kr/product/list.html?cate_no=26", // Bottom

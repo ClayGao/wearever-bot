@@ -1,4 +1,4 @@
-import ProductList from "../women.json";
+import ProductList from "../product-2024-06-15.json";
 // import * as ProductList from "../cart-women.json";
 // import * as ProductList from "../veryu.json";
 import { chromium } from "@playwright/test";
