@@ -1006,7 +1006,10 @@ export const tuziroomHandler = async (page: Page, url: string) => {
 export const hoiboHandler = async (page: Page, url: string) => {
   await page.goto(url, { waitUntil: "networkidle", timeout: 600000 });
   // 先選擇顏色，才會出現尺寸
-  await page.selectOption("#product_option_id1", { index: 2 });
+  const options = await page.locator('#product_option_id1');
+  if (await options.count() > 0) {
+    await page.selectOption("#product_option_id1", { index: 2 });
+  }
   for (let i = 1; i <= 10; i++) {
     await scrollToElement(page, 1);
     await page.waitForTimeout(1500);
