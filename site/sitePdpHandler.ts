@@ -203,7 +203,7 @@ export const autumnPdpHandler = async (page: Page, url: string) => {
         " "
       )[1];
       const description = `${
-        document.querySelector(".simple_desc")!.textContent
+        document.querySelector("#prdInfo")!.textContent
       }`;
 
       const color = Array.from(
@@ -1072,6 +1072,107 @@ export const hoiboHandler = async (page: Page, url: string) => {
   const result = {
     url,
     brand: "hoibo",
+    ...productData,
+  };
+
+  return result;
+}
+
+/**
+ * 
+ * @param page 這個要看一下，因為這個是當時使用本地寫的
+ * @param url 
+ * @returns 
+ */
+export const smartstoreHandler = async (page: Page, url: string) => {
+
+  await page.goto(url, { waitUntil: "load", timeout: 600000 });
+  // 先選擇顏色，才會出現尺寸
+  // const options = await page.locator('#product_option_id1');
+  // if (await options.count() > 0) {
+  //   await page.selectOption("#product_option_id1", { index: 2 });
+  // }
+// 檢查元素是否存在，如果存在則點擊
+  const highlightElement = await page.locator('.highlight');
+  // if (highlightElement) {
+  //   await highlightElement.click();
+  // }
+
+  await page.locator('._1gG8JHE9Zc').click();
+
+  for (let i = 1; i <= 10; i++) {
+    await scrollToElement(page, 1);
+    await page.waitForTimeout(1500);
+  }
+
+  const productData = await page.evaluate(() => {
+    const name = document.querySelector(
+      "._22kNQuEXmb"
+    )!.textContent;
+
+    const price = document.querySelector(
+      "._1LY7DqCnwR"
+    )!.textContent;
+    const description = document.querySelector(".se-main-container").textContent
+    
+    // const color = Array.from(
+    //   document.querySelector('.xans-product-option').querySelectorAll('[option_title="Color"] > option')
+    // )
+    //   .filter(
+    //     // 排除預設兩個
+    //     (el, idx) => idx > 1
+    //   )
+    //   .map((el) => {
+    //     const val = el.getAttribute("value");
+    //     return val?.split("*")[0];
+    //   })
+    //   .join(" / ");
+
+    // const size = Array.from(
+    //   document.querySelector('.xans-product-option').querySelectorAll('[option_title="Size"] > option')
+    // )
+    //   .filter(
+    //     (el, idx) => idx > 1
+    //   )
+    //   .map((el) => el.getAttribute("value"))
+    //   .join(" / ");
+
+    const headerImages = Array.from(
+      document.querySelectorAll("div[role='tabpanel'] img")
+    )
+      .map(
+        //@ts-ignore
+        (imgEl) => imgEl.src
+      )
+      .join(" \n");
+
+    const images = Array.from(
+      document.querySelectorAll(".se-main-container img")
+    )
+      .map(
+        //@ts-ignore
+        (imgEl) => imgEl.src
+      )
+      .join(" \n");
+
+    const allImages = headerImages.concat(images)
+
+    const productImage = allImages[0];
+
+    return {
+      name,
+      price,
+      description,
+      color: '',
+      size: '',
+      images: allImages,
+      productImage,
+    };
+  });
+
+  const result = {
+    url,
+    brand: "smartstor",
     ...productData,
   };
 

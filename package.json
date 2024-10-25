@@ -10,13 +10,15 @@
     "prod": "cross-env-shell APP_ENV=production npx ts-node ./src/get-products-to-sheet.ts",
     "test": "cross-env-shell APP_ENV=production playwright test",
     "test:ui": "cross-env-shell playwright test --ui",
-    "test:headed": "cross-env-shell playwright test --headed"
+    "test:headed": "cross-env-shell playwright test --headed",
+    "gp:vasika:json": "cross-env-shell APP_ENV=development npx ts-node ./src/vasika.ts",
+    "gp:vasika:db": "cross-env-shell APP_ENV=development npx ts-node ./src/vasika-db.ts"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@playwright/test": "^1.39.0",
+    "@playwright/test": "^1.47.2",
     "@types/node": "^20.9.0"
   },
   "dependencies": {

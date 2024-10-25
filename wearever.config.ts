@@ -13,7 +13,8 @@ import {
   clostudioHandler,
   raptureHandler,
   tuziroomHandler,
-  hoiboHandler, 
+  hoiboHandler,
+  smartstoreHandler,
 } from "./site/sitePdpHandler";
 
 export const PLAYWRIGHT_CONFIG = {
@@ -241,16 +242,16 @@ export const SITE_CONFIG: SiteConfig[] = [
     pdpHandler: chieleiHandler,
   },
   {
-    enable: false,
+    enable: true,
     name: "clostudio",
     domain: "https://clostudio.kr",
     pages: [
       "https://clostudio.kr/product/list.html?cate_no=454", // NEW 5%
-      "https://clostudio.kr/product/list.html?cate_no=455", // BEST
-      "https://clostudio.kr/product/list.html?cate_no=456", // CLOS MADE
-      "https://clostudio.kr/product/list.html?cate_no=472", // All
+      // "https://clostudio.kr/product/list.html?cate_no=455", // BEST
+      // "https://clostudio.kr/product/list.html?cate_no=456", // CLOSE MADE
+      // "https://clostudio.kr/product/list.html?cate_no=472", // All
     ],
-    pagePagination: 2,
+    pagePagination: 3,
     cardSelector: ".prdList > li",
     cartProductNameSelector: ".name",
     pdpHandler: clostudioHandler,
