@@ -15,10 +15,11 @@ import {
   tuziroomHandler,
   hoiboHandler,
   smartstoreHandler,
+  yourclothesHandler
 } from "./site/sitePdpHandler";
 
 export const PLAYWRIGHT_CONFIG = {
-  headless: true, // 無頭模式
+  headless: false, // 無頭模式
 };
 
 type SiteConfig = {
@@ -308,6 +309,19 @@ export const SITE_CONFIG: SiteConfig[] = [
     cardSelector: ".prdList .xans-record-",
     cartProductNameSelector: ".name",
     pdpHandler: hoiboHandler
+  },
+  {
+    enable: true,
+    name: "yourclothes",
+    domain: "https://yourclothes.kr/",
+    pages: [
+      "https://yourclothes.kr/product/list.html?cate_no=86",
+      // "https://yourclothes.kr/product/list.html?cate_no=86&sort_method=5", // All and new
+    ],
+    pagePagination: 4,
+    cardSelector: ".prdList > .xans-record-",
+    cartProductNameSelector: ".name",
+    pdpHandler: yourclothesHandler
   },
 ];
 
