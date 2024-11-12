@@ -661,7 +661,7 @@ export const diplitiHandler = async (page: Page, url: string) => {
     )
       .map(
         //@ts-ignore
-        (imgEl) => imgEl.src
+        (imgEl) => imgEl.src.includes(".webp") ? imgEl.getAttribute("data-origin-src") : imgEl.src
       )
       .join(" \n");
 

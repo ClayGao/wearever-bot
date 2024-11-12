@@ -1,3 +1,3 @@
 export const CONFIG = {
-  headless: false, // 無頭模式
+  headless: true, // 無頭模式
 };
