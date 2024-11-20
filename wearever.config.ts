@@ -15,7 +15,8 @@ import {
   tuziroomHandler,
   hoiboHandler,
   smartstoreHandler,
-  yourclothesHandler
+  yourclothesHandler,
+  vagueHandler,
 } from "./site/sitePdpHandler";
 
 export const PLAYWRIGHT_CONFIG = {
@@ -323,6 +324,19 @@ export const SITE_CONFIG: SiteConfig[] = [
     cartProductNameSelector: ".name",
     pdpHandler: yourclothesHandler
   },
+  {
+    enable: true,
+    name: "vague",
+    domain: "https://vague.kr/",
+    pages: [
+      "https://vague.kr/category/all/26/", // ALL
+      "https://vague.kr/category/new-7/57/", // NEW 7%
+    ],
+    pagePagination: 5,
+    cardSelector: ".prdList > .xans-record-",
+    cartProductNameSelector: ".name",
+    pdpHandler: vagueHandler
+  }
 ];
 
 export const ALL_SITE_PAGES = [
