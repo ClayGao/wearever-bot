@@ -62,9 +62,9 @@ const addProductCardToArray = async (page: Page, url: string) => {
     await card.scrollIntoViewIfNeeded();
     // 如果 card 不包括連結，就不要
     if ((await card.locator("a").count()) === 0) continue;
-    const a = await card.locator("a").first();
-    const img = await a.locator(site.previewImgSelector || "img").first();
+    const a = await card.locator(site.cardLinkSelector || "a").first();
     const link = await a.getAttribute("href");
+    const img = await card.locator(site.previewImgSelector || "img").first();
     if (!link) continue;
     // TODO: 這裡的寫法其實是為了迎合 new cheap chic 那種把 div 作為 img 的寫法，找時間要重構
     const previewImg =

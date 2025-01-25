@@ -17,6 +17,7 @@ import {
   smartstoreHandler,
   yourclothesHandler,
   vagueHandler,
+  threeThreeHoodieHandler
 } from "./site/sitePdpHandler";
 
 export const PLAYWRIGHT_CONFIG = {
@@ -32,6 +33,7 @@ type SiteConfig = {
   pages: string[];
   pagePagination: number;
   cardSelector: string;
+  cardLinkSelector?: string;
   pageQueryString?: string;
   previewImgSelector?: string;
   pdpHandler: Function; // Replace Function with a more specific type if possible
@@ -66,24 +68,6 @@ export const SITE_CONFIG: SiteConfig[] = [
   //   pdpHandler: hifiPdpHandler,
   // },
   {
-    enable: false,
-    name: "MTSU",
-    domain: "https://tsumu.co.kr",
-    pages: [
-      // "https://tsumu.co.kr/product/list.html?cate_no=62", // New 7%
-      // "https://tsumu.co.kr/product/list.html?cate_no=26", // best
-      "https://tsumu.co.kr/product/list.html?cate_no=24", // outer
-      "https://tsumu.co.kr/product/list.html?cate_no=25", // top
-      "https://tsumu.co.kr/product/list.html?cate_no=28", // pants
-      // "https://tsumu.co.kr/product/list.html?cate_no=30", // accessories
-      // "https://tsumu.co.kr/product/list.html?cate_no=31", // sale
-    ],
-    pagePagination: 2,
-    cardSelector: ".prdList > li",
-    cartProductNameSelector: ".name",
-    pdpHandler: mstuPdpHandler,
-  },
-  {
     enable: true,
     name: "AUTUMN",
     domain: "https://autumnshop.kr",
@@ -116,6 +100,7 @@ export const SITE_CONFIG: SiteConfig[] = [
     name: "LA-ROOM",
     domain: "https://la-room.kr",
     pages: [
+      "https://la-room.kr", // index
       "https://la-room.kr/product/list.html?cate_no=66", // New Product
       // "https://la-room.kr/product/list.html?cate_no=73", // Hot Products
       "https://la-room.kr/product/list.html?cate_no=25", // TOP
@@ -126,48 +111,31 @@ export const SITE_CONFIG: SiteConfig[] = [
       "https://la-room.kr/product/list.html?cate_no=42", // Accessory
       // "https://la-room.kr/product/list.html?cate_no=87", // Shipping Today
     ],
-    pagePagination: 4,
+    pagePagination: 5,
     cardSelector: ".xans-product-listnormal .mun-prd-list .mun-prd-list-cover",
     cartProductNameSelector: ".name",
     pdpHandler: laRoomPdpHandler,
   },
+  // {
+  //   enable: false,
+  //   name: "VERY-YOU",
+  //   domain: "https://veryyou.co.kr",
+  //   pages: [
+  //     "https://veryyou.co.kr/product/list.html?cate_no=36", // NEW 5%
+  //     "https://veryyou.co.kr/product/list.html?cate_no=28", // OUTER
+  //     "https://veryyou.co.kr/product/list.html?cate_no=25", // TOP
+  //     "https://veryyou.co.kr/product/list.html?cate_no=26", // BOTTOM
+  //     "https://veryyou.co.kr/product/list.html?cate_no=27", // DRESS
+  //     // "https://veryyou.co.kr/product/list.html?cate_no=29", // SHOES
+  //     // "https://veryyou.co.kr/product/list.html?cate_no=31", // ACCESSORY
+  //   ],
+  //   pagePagination: 2,
+  //   cardSelector: ".prdList .xans-record-",
+  //   cartProductNameSelector: ".name",
+  //   pdpHandler: veryYouPdpHandler,
+  // },
   {
-    enable: false,
-    name: "VERY-YOU",
-    domain: "https://veryyou.co.kr",
-    pages: [
-      "https://veryyou.co.kr/product/list.html?cate_no=28", // OUTER
-      "https://veryyou.co.kr/product/list.html?cate_no=25", // TOP
-      "https://veryyou.co.kr/product/list.html?cate_no=26", // BOTTOM
-      "https://veryyou.co.kr/product/list.html?cate_no=27", // DRESS
-      "https://veryyou.co.kr/product/list.html?cate_no=29", // SHOES
-      "https://veryyou.co.kr/product/list.html?cate_no=31", // ACCESSORY
-    ],
-    pagePagination: 2,
-    cardSelector: ".prdList .xans-record-",
-    cartProductNameSelector: ".name",
-    pdpHandler: veryYouPdpHandler,
-  },
-  {
-    enable: false,
-    name: "room203",
-    domain: "https://room203.kr/",
-    pages: [
-      // "https://room203.kr/category/new-5/42/", // New 5%
-      // "https://room203.kr/category/best/43/", // Best
-      // "https://room203.kr/category/sale/48/", // Sale
-      "https://room203.kr/category/outwear/44/", // Outer
-      "https://room203.kr/category/top/45/", // Top
-      "https://room203.kr/category/pants/46/", // Pants
-      "https://room203.kr/category/accessory/47/", // Accessories
-    ],
-    pagePagination: 2,
-    cardSelector: ".prdList .xans-record-",
-    cartProductNameSelector: ".name",
-    pdpHandler: room203PdpHandler,
-  },
-  {
-    enable: false,
+    enable: true,
     name: "NEW_CHEAP_CHIC",
     domain: "https://newcheapchic.store",
     pages: [
@@ -183,23 +151,23 @@ export const SITE_CONFIG: SiteConfig[] = [
     cartProductNameSelector: ".productName",
     pdpHandler: newCheapChicPdpHandler,
   },
-  {
-    enable: false,
-    name: "m123undeuxtrois",
-    domain: "https://m.123undeuxtrois.com",
-    pages: [
-      // "https://m.123undeuxtrois.com/product/list2.html?cate_no=44", // NOUARTÉ 누아르테
-      "https://m.123undeuxtrois.com/product/list.html?cate_no=45", // Outer
-      "https://m.123undeuxtrois.com/product/list.html?cate_no=46", // TOP
-      "https://m.123undeuxtrois.com/product/list.html?cate_no=47", // Bottom
-      "https://m.123undeuxtrois.com/product/list.html?cate_no=48", // Dress/set
-      "https://m.123undeuxtrois.com/product/list.html?cate_no=50", // shoes
-    ],
-    pagePagination: 2,
-    cardSelector: ".prdList .xans-record-",
-    cartProductNameSelector: ".name",
-    pdpHandler: m123undeuxtroisHandler,
-  },
+  // {
+  //   enable: true,
+  //   name: "m123undeuxtrois",
+  //   domain: "https://m.123undeuxtrois.com",
+  //   pages: [
+  //     // "https://m.123undeuxtrois.com/product/list2.html?cate_no=44", // NOUARTÉ 누아르테
+  //     "https://m.123undeuxtrois.com/product/list.html?cate_no=45", // Outer
+  //     "https://m.123undeuxtrois.com/product/list.html?cate_no=46", // TOP
+  //     "https://m.123undeuxtrois.com/product/list.html?cate_no=47", // Bottom
+  //     "https://m.123undeuxtrois.com/product/list.html?cate_no=48", // Dress/set
+  //     "https://m.123undeuxtrois.com/product/list.html?cate_no=50", // shoes
+  //   ],
+  //   pagePagination: 2,
+  //   cardSelector: ".prdList .xans-record-",
+  //   cartProductNameSelector: ".name",
+  //   pdpHandler: m123undeuxtroisHandler,
+  // },
   {
     enable: true,
     name: "dipliti",
@@ -231,18 +199,18 @@ export const SITE_CONFIG: SiteConfig[] = [
       await page.waitForTimeout(5000);
     },
   },
-  {
-    enable: false,
-    name: "chielei",
-    domain: "https://www.chielei.com", // 手工鞋
-    pages: [
-      "https://www.chielei.com/product/list.html?cate_no=101", // 24SS
-    ],
-    pagePagination: 2,
-    cardSelector: ".prdList > li",
-    cartProductNameSelector: ".name",
-    pdpHandler: chieleiHandler,
-  },
+  // {
+  //   enable: false,
+  //   name: "chielei",
+  //   domain: "https://www.chielei.com", // 手工鞋
+  //   pages: [
+  //     "https://www.chielei.com/product/list.html?cate_no=101", // 24SS
+  //   ],
+  //   pagePagination: 2,
+  //   cardSelector: ".prdList > li",
+  //   cartProductNameSelector: ".name",
+  //   pdpHandler: chieleiHandler,
+  // },
   {
     enable: true,
     name: "clostudio",
@@ -251,27 +219,29 @@ export const SITE_CONFIG: SiteConfig[] = [
       "https://clostudio.kr/product/list.html?cate_no=454", // NEW 5%
       // "https://clostudio.kr/product/list.html?cate_no=455", // BEST
       // "https://clostudio.kr/product/list.html?cate_no=456", // CLOSE MADE
-      // "https://clostudio.kr/product/list.html?cate_no=472", // All
+      "https://clostudio.kr/product/list.html?cate_no=472", // All
     ],
     pagePagination: 3,
-    cardSelector: ".prdList > li",
+    cardSelector: ".prdList .item_list",
     cartProductNameSelector: ".name",
+    cardLinkSelector: ".prdImg a",
+    previewImgSelector: ".prdImg",
     pdpHandler: clostudioHandler,
   },
-  {
-    enable: false,
-    name: "rapture",
-    domain: "https://www.about-rapture.kr/",
-    pages: [
-      "https://www.about-rapture.kr/allproduct?productListFilter=allFilter&productSortFilter=PRODUCT_ORDER_NO", // OUTER
-    ],
-    pageQueryString: "productListPage",
-    pagePagination: 2,
-    cardSelector: ".productListPage > .shopProductWrapper",
-    cartProductNameSelector: ".productName",
-    pdpHandler: raptureHandler,
-    previewImgSelector: ".img",
-  },
+  // {
+  //   enable: false,
+  //   name: "rapture",
+  //   domain: "https://www.about-rapture.kr/",
+  //   pages: [
+  //     "https://www.about-rapture.kr/allproduct?productListFilter=allFilter&productSortFilter=PRODUCT_ORDER_NO", // OUTER
+  //   ],
+  //   pageQueryString: "productListPage",
+  //   pagePagination: 2,
+  //   cardSelector: ".productListPage > .shopProductWrapper",
+  //   cartProductNameSelector: ".productName",
+  //   pdpHandler: raptureHandler,
+  //   previewImgSelector: ".img",
+  // },
   {
     enable: true,
     name: "tuziroom",
@@ -281,18 +251,6 @@ export const SITE_CONFIG: SiteConfig[] = [
       "https://tuziroom.com/new-5/72/", // New 5%
     ],
     pagePagination: 5,
-    cardSelector: ".prdList .xans-record-",
-    cartProductNameSelector: ".name",
-    pdpHandler: tuziroomHandler
-  },
-  {
-    enable: true,
-    name: "tuziroom-summer",
-    domain: "https://tuziroomofficial.cafe24.com/",
-    pages: [
-      "https://tuziroomofficial.cafe24.com/product/list.html?cate_no=57", // All
-    ],
-    pagePagination: 3,
     cardSelector: ".prdList .xans-record-",
     cartProductNameSelector: ".name",
     pdpHandler: tuziroomHandler
@@ -336,6 +294,18 @@ export const SITE_CONFIG: SiteConfig[] = [
     cardSelector: ".prdList > .xans-record-",
     cartProductNameSelector: ".name",
     pdpHandler: vagueHandler
+  },
+  {
+    enable: true,
+    name: "33hoodie",
+    domain: "https://33hoodie.com/",
+    pages: [
+      "https://33hoodie.com/product/list.html?cate_no=73", // Life style => New arrival
+    ],
+    pagePagination: 3,
+    cardSelector: ".prdList > .xans-record-",
+    cartProductNameSelector: ".name",
+    pdpHandler: threeThreeHoodieHandler
   }
 ];
 
